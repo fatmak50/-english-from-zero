@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>English From Zero — A0–A2</title>
+<style>
+:root{--ink:#17324d;--blue:#3d6f8f;--green:#4f826c;--bg:#f5f7f8;--card:#fff;--muted:#71808d;--line:#dce4e9;--soft:#edf3f6;--danger:#9a5b4a;--warn:#9b7740}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#24313d;font:15px/1.6 Arial,sans-serif}header{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line)}.nav{max-width:1120px;margin:auto;padding:15px 22px;display:flex;justify-content:space-between;align-items:center}.logo{font-weight:800;color:var(--ink);letter-spacing:.2px}.nav a{color:#314554;text-decoration:none;margin-left:22px;font-size:14px}.hero{background:var(--ink);color:white}.heroin{max-width:1120px;margin:auto;padding:55px 22px}.eyebrow{text-transform:uppercase;letter-spacing:1.5px;font-size:12px;opacity:.75}.hero h1{font-size:40px;line-height:1.12;margin:8px 0}.hero p{max-width:700px;color:#dce7ef;margin:0 0 22px}.btn{background:white;color:var(--ink);border:0;border-radius:7px;padding:11px 17px;font-weight:700;cursor:pointer}main{max-width:1120px;margin:auto;padding:30px 22px 60px}.panel,.lesson,.test,.result{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;margin-bottom:20px}h2{color:var(--ink);margin:0 0 5px}h3{color:var(--ink);margin:0 0 7px}.muted{color:var(--muted);font-size:14px}.bar{height:8px;background:#e5ebef;border-radius:10px;overflow:hidden;margin-top:10px}.bar span{display:block;height:100%;background:var(--green);width:0}.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.level{background:white;border:1px solid var(--line);border-radius:11px;padding:19px;cursor:pointer}.level.active{border-color:var(--blue);box-shadow:0 0 0 2px #e8f0f4}.level .pct{font-size:12px;color:var(--green);font-weight:bold}.topics{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:16px}.topic{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px}.topic button,.ghost{background:none;border:0;color:var(--blue);font-weight:700;cursor:pointer;padding:0}.lesson,.test,.result{display:none}.lesson.show,.test.show,.result.show{display:block}.tag{display:inline-block;background:var(--soft);color:var(--blue);border-radius:20px;padding:4px 9px;font-size:11px;font-weight:bold}.explain{background:#f7f9fa;border-left:4px solid var(--blue);padding:14px;margin:18px 0}.examples{display:grid;grid-template-columns:1fr 1fr;gap:10px}.ex{border:1px solid var(--line);border-radius:8px;padding:13px}.en{font-weight:bold;color:var(--ink)}.tr{font-size:13px;color:var(--muted)}.practice{margin-top:18px;padding:17px;border:1px solid var(--line);border-radius:9px}.practice input,.answer{width:100%;max-width:560px;padding:10px;border:1px solid #becbd3;border-radius:7px;font-size:15px}.primary{margin-top:10px;background:var(--ink);color:white;border:0;border-radius:7px;padding:10px 15px;cursor:pointer}.navrow{display:flex;justify-content:space-between;margin-top:22px}.navrow button{border:1px solid var(--line);background:white;border-radius:7px;padding:9px 14px;cursor:pointer}.q{padding:15px 0;border-bottom:1px solid var(--line)}.q label{display:block;margin:7px 0;padding:7px;border:1px solid var(--line);border-radius:7px;cursor:pointer}.q input[type=text]{width:100%;padding:9px;border:1px solid var(--line);border-radius:7px}.submit{margin-top:18px}.score{font-size:34px;color:var(--ink);font-weight:800}.review{margin-top:18px}.skill{padding:14px;border:1px solid var(--line);border-radius:9px;margin:9px 0}.skill.bad{border-left:4px solid var(--danger)}.skill.mid{border-left:4px solid var(--warn)}.skill.good{border-left:4px solid var(--green)}.skill button{margin-top:8px}.success{background:#eef6f1;padding:15px;border-radius:9px;margin-top:15px}.small{font-size:12px;color:var(--muted)}footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}@media(max-width:760px){.levels,.topics{grid-template-columns:1fr}.examples{grid-template-columns:1fr}.nav a{margin-left:10px}.hero h1{font-size:33px}}
+</style>
+</head>
+<body>
+<header><div class="nav"><div class="logo">English From Zero</div><nav><a href="#home">Ana Sayfa</a><a href="#levels">Dersler</a><a href="#progress">İlerlemem</a></nav></div></header>
+
+<section class="hero" id="home"><div class="heroin">
+<div class="eyebrow">A0 → A1 → A2</div><h1>İngilizceyi sıfırdan öğren.</h1>
+<p>Türkçe açıklamalar, cümle kurma pratiği ve günlük hayat senaryolarıyla sağlam bir temel oluştur.</p>
+<button class="btn" onclick="document.getElementById('levels').scrollIntoView({behavior:'smooth'})">Eğitime Başla</button>
+</div></section>
+
+<main>
+<section class="panel" id="progress"><div style="display:flex;justify-content:space-between;gap:10px"><div><h3>İlerlemem</h3><div class="muted" id="overallText">Henüz ders tamamlamadın.</div></div><strong id="overallPct">0%</strong></div><div class="bar"><span id="overallBar"></span></div></section>
+
+<section id="levels">
+<h2>Öğrenme Yolculuğun</h2><p class="muted">Önce A0 temelini tamamla. Daha sonra A1 ve A2'ye ilerle.</p>
+<div class="levels" id="levelCards"></div>
+<div class="panel" style="margin-top:18px"><h3 id="selectedTitle">A0 · Foundations</h3><div class="muted" id="selectedDesc">İngilizce cümle kurmanın temelini oluştur.</div><div class="topics" id="topics"></div></div>
+</section>
+
+<section class="lesson" id="lesson"></section>
+<section class="test" id="test"></section>
+<section class="result" id="result"></section>
+</main>
+<footer>English From Zero · A0–A2 Self-Learning Platform</footer>
+
+<script>
+const curriculum={
+A0:{name:"A0 · Foundations",desc:"İngilizce cümle kurmanın temelini oluştur.",lessons:[
+["Temel Cümle Mantığı","Cümlede özne, fiil ve tamamlayıcıların yerini öğren.","Sentence Building","I am ready.","Hazırım."],
+["I / You / He / She","Kişi zamirlerini ve am/is/are yapılarını kullan.","Grammar","She is tired.","O yorgun."],
+["Olumlu ve Olumsuz Cümleler","not kullanarak basit olumsuz cümleler kur.","Sentence Building","I am not busy.","Meşgul değilim."],
+["Soru Sormaya Başla","Temel soru kelimeleri ve kısa sorularla tanış.","Questions","Where are you?","Neredesin."],
+["This / That / These / Those","Yakındaki ve uzaktaki şeyleri anlat.","Grammar","This is my room.","Bu benim odam."],
+["A / An / The","İngilizcedeki temel artikel mantığını öğren.","Grammar","I have a room.","Bir odam var."]]},
+A1:{name:"A1 · Everyday English",desc:"Günlük hayatta kullanabileceğin temel İngilizceyi geliştir.",lessons:[
+["Kendini Tanıtma","İsim, ülke, yaş ve kişisel bilgilerini anlat.","Everyday English","I am from Turkey.","Türkiye'denim."],
+["Günlük Rutin","Her gün yaptığın işleri basit cümlelerle anlat.","Grammar","I work every day.","Her gün çalışırım."],
+["Have / Has","Sahip olduğun şeyleri ve ihtiyaçlarını ifade et.","Grammar","I have a question.","Bir sorum var."],
+["Yemek & Restaurant","Sipariş vermeyi ve basit istekleri ifade etmeyi öğren.","Restaurant English","I would like coffee.","Kahve istiyorum."],
+["Yol Tarifi","Bir yerin nerede olduğunu sormayı ve anlatmayı öğren.","Travel English","Where is the hotel?","Otel nerede?"],
+["Hotel Basics","Rezervasyon ve check-in sırasında temel iletişim kur.","Hotel English","I have a reservation.","Rezervasyonum var."]]},
+A2:{name:"A2 · Practical English",desc:"Daha uzun cümleler kur ve gerçek hayat durumlarını yönet.",lessons:[
+["Past Simple","Geçmişte yaşadığın olayları anlatmaya başla.","Grammar","I stayed at a hotel.","Bir otelde kaldım."],
+["Gelecek Planları","Planlarını going to ve will ile anlat.","Grammar","I am going to travel.","Seyahat edeceğim."],
+["Karşılaştırmalar","İki şeyi karşılaştır ve basit tercihlerini anlat.","Grammar","This room is bigger.","Bu oda daha büyük."],
+["Problem & Şikâyet","Bir problemi açıklamayı ve çözüm istemeyi öğren.","Real Life","The room is too cold.","Oda çok soğuk."],
+["Tavsiye & Rica","should, could ve would ile daha doğal konuş.","Real Life","Could you help me?","Bana yardım edebilir misiniz?"],
+["Travel Conversation","Seyahat sırasında daha uzun konuşmalar yap.","Travel English","I'd like to change my reservation.","Rezervasyonumu değiştirmek istiyorum."]]}
+};
+let level="A0", lessonIndex=0;
+let progress=JSON.parse(localStorage.getItem("efz-progress")||"{}");
+let testResults=JSON.parse(localStorage.getItem("efz-tests")||"{}");
+
+function save(){localStorage.setItem("efz-progress",JSON.stringify(progress));localStorage.setItem("efz-tests",JSON.stringify(testResults))}
+function totalLessons(){return Object.values(curriculum).reduce((n,l)=>n+l.lessons.length,0)}
+function completedCount(){return Object.keys(progress).filter(k=>progress[k]).length}
+function updateOverall(){let pct=Math.round(completedCount()/totalLessons()*100);document.getElementById("overallPct").textContent=pct+"%";document.getElementById("overallBar").style.width=pct+"%";document.getElementById("overallText").textContent=`${completedCount()} / ${totalLessons()} ders tamamlandı.`}
+function renderLevels(){
+document.getElementById("levelCards").innerHTML=Object.entries(curriculum).map(([k,v])=>{let done=v.lessons.filter((_,i)=>progress[k+"-"+i]).length;let pct=Math.round(done/v.lessons.length*100);return `<div class="level ${k===level?'active':''}" onclick="selectLevel('${k}')"><h3>${v.name}</h3><div class="muted">${v.desc}</div><div class="pct">${done}/${v.lessons.length} ders · ${pct}%</div><div class="bar"><span style="width:${pct}%"></span></div></div>`}).join("");
+let v=curriculum[level];document.getElementById("selectedTitle").textContent=v.name;document.getElementById("selectedDesc").textContent=v.desc;
+document.getElementById("topics").innerHTML=v.lessons.map((x,i)=>`<div class="topic"><span class="tag">${String(i+1).padStart(2,"0")}</span><h3>${x[0]}</h3><div class="muted">${x[1]}</div><button onclick="openLesson(${i})">${progress[level+"-"+i]?"Tekrar Et":"Derse Başla"} →</button></div>`).join("");
+updateOverall()
+}
+function selectLevel(k){level=k;renderLevels();document.getElementById("levels").scrollIntoView({behavior:"smooth"})}
+function openLesson(i){
+lessonIndex=i;let x=curriculum[level].lessons[i], el=document.getElementById("lesson");
+el.className="lesson show";el.innerHTML=`<span class="tag">${x[2]}</span><h2>${x[0]}</h2><p class="muted">${x[1]}</p>
+<div class="explain"><strong>Bu derste ne öğreneceksin?</strong><br>Önce yapıyı anlayacağız, sonra örneği inceleyeceğiz ve son olarak cümleyi kendin kuracaksın. Amaç kelime ezberlemek değil, kelimeyi doğru cümlede kullanabilmek.</div>
+<div class="examples"><div class="ex"><div class="en">${x[3]}</div><div class="tr">${x[4]}</div></div><div class="ex"><div class="en">${x[3].replace("I ","You ").replace("my ","your ")}</div><div class="tr">Aynı yapıyı başka kişiyle kullan.</div></div></div>
+<div class="practice"><h3>Şimdi sen kur</h3><p>“${x[4]}” cümlesini İngilizce yaz.</p><input id="lessonAnswer" placeholder="Cümleni buraya yaz"><br><button class="primary" onclick="checkLesson()">Cevabımı Kontrol Et</button><div id="lessonFeedback" class="muted" style="margin-top:9px"></div></div>
+<div class="navrow"><button onclick="openLesson(${Math.max(0,i-1)})">← Önceki</button><button onclick="openLesson(${Math.min(curriculum[level].lessons.length-1,i+1)})">Sonraki →</button></div>`;
+el.scrollIntoView({behavior:"smooth",block:"start"})
+}
+function normalize(s){return s.toLowerCase().trim().replace(/[.,!?]/g,"").replace(/\s+/g," ")}
+function checkLesson(){
+let x=curriculum[level].lessons[lessonIndex], ans=normalize(document.getElementById("lessonAnswer").value), target=normalize(x[3]), f=document.getElementById("lessonFeedback");
+if(ans===target){progress[level+"-"+lessonIndex]=true;save();renderLevels();f.innerHTML="✓ Doğru. Bu cümleyi başarıyla kurdun. Ders tamamlandı.";f.style.color="var(--green)";}else{f.innerHTML=`Henüz değil. Cümlede kullanman gereken yapı: <strong>${x[3]}</strong>`;f.style.color="var(--danger)"}
+}
+function startTest(){
+let v=curriculum[level], el=document.getElementById("test");
+let qs=v.lessons.slice(0,Math.min(6,v.lessons.length)).map((x,i)=>({skill:x[2],q:`“${x[4]}” cümlesinin doğru İngilizcesi hangisi?`,opts:[x[3],x[3].replace(/am|is|are|have|would like/,"do"),"I "+x[3].split(" ").slice(1).reverse().join(" ")] ,a:0}));
+el.className="test show";el.innerHTML=`<h2>${v.name} · Bölüm Bitirme Testi</h2><p class="muted">Bu testte hangi konuları ne kadar öğrendiğini ölçeceğiz. Sonuç sonunda tekrar etmen gereken konuları göreceksin.</p>`+
+qs.map((q,i)=>`<div class="q"><strong>${i+1}. ${q.q}</strong>${q.opts.map((o,j)=>`<label><input type="radio" name="q${i}" value="${j}"> ${o}</label>`).join("")}</div>`).join("")+
+`<button class="primary submit" onclick='finishTest(${JSON.stringify(qs)})'>Testi Bitir</button>`;
+el.scrollIntoView({behavior:"smooth"})
+}
+function finishTest(qs){
+let score=0, skills={};qs.forEach((q,i)=>{let a=document.querySelector(`input[name=q${i}]:checked`);let ok=a&&+a.value===q.a;if(ok)score++;skills[q.skill]=(skills[q.skill]||{c:0,t:0});skills[q.skill].t++;if(ok)skills[q.skill].c++});
+let pct=Math.round(score/qs.length*100);testResults[level]={pct,score,total:qs.length,skills};save();showResult(testResults[level])
+}
+function showResult(r){
+let el=document.getElementById("result"), v=curriculum[level];let blocks=Object.entries(r.skills).map(([s,d])=>{let p=Math.round(d.c/d.t*100),cls=p<70?"bad":p<80?"mid":"good";let msg=p<70?"Bu konuda temel yapıyı tekrar etmen gerekiyor. Önce ilgili dersi yeniden çalış, ardından kısa alıştırmayı tekrar yap.":p<80?"Konunun temelini anlamışsın; birkaç ek pratikle daha sağlam hale getirebilirsin.":"Bu konuyu iyi öğrenmiş görünüyorsun. Şimdilik tekrar etmene gerek yok.";return `<div class="skill ${cls}"><strong>${s}</strong> · ${p}%<br><span class="muted">${msg}</span>${p<80?`<br><button class="ghost" onclick="openLesson(${v.lessons.findIndex(x=>x[2]===s)})">Bu konuyu tekrar et →</button>`:""}</div>`}).join("");
+let next=r.pct>=80?`<div class="success"><strong>Sonraki adım:</strong> Test sonucuna göre temelini yeterince pekiştirdin. Bir sonraki bölüme geçebilirsin.</div>`:`<div class="explain"><strong>Şimdi ne yapmalısın?</strong><br>Önce yukarıda belirtilen konuları tekrar et. Ardından testi yeniden çöz. %80 veya üzerine ulaştığında sonraki bölüme geçmen önerilir.</div>`;
+el.className="result show";el.innerHTML=`<h2>Test Sonucun</h2><div class="score">${r.pct}/100</div><p>${r.score} / ${r.total} doğru cevap</p><div class="review"><h3>Tekrar Etmen Gereken Konular</h3><p class="muted">Aşağıdaki açıklamalar sana hangi konuyu neden tekrar etmen gerektiğini gösterir.</p>${blocks}</div>${next}`;
+el.scrollIntoView({behavior:"smooth"})
+}
+renderLevels();
+</script>
+</body></html>
