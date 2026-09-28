@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#7b5cff">
+<title>Lena's English Adventure • A0 → A1 → A2</title>
+<style>
+:root{--p:#7b5cff;--pk:#ff5fa2;--b:#42c8ff;--g:#55d98a;--y:#ffd84d;--ink:#28304a}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:linear-gradient(180deg,#f4efff,#fff8ef);overflow-x:hidden}
+button{font:inherit;cursor:pointer}.app{max-width:1100px;margin:auto;padding:12px}
+.hero{background:linear-gradient(135deg,#7559ff,#ff65a8);color:white;border-radius:30px;padding:24px;position:relative;overflow:hidden;box-shadow:0 12px 32px #5d43a52b}
+.hero h1{margin:0 0 6px;font-size:clamp(28px,6vw,48px)}.hero p{margin:0;font-size:17px;max-width:700px}.bunny{position:absolute;right:28px;bottom:-8px;font-size:65px}
+.progress{margin-top:14px;background:white;padding:14px;border-radius:20px;box-shadow:0 7px 20px #4b396b14}.bar{height:14px;background:#eee9fb;border-radius:99px;overflow:hidden;margin-top:7px}.fill{height:100%;width:0;background:linear-gradient(90deg,var(--g),var(--b));transition:.4s}.stats{display:flex;gap:8px;margin-top:9px;flex-wrap:wrap}.badge{background:#fff1a8;border-radius:99px;padding:6px 12px;font-weight:900}
+.nav{display:flex;gap:8px;overflow:auto;padding:14px 0 5px;scrollbar-width:none}.nav button{border:0;background:#fff;border-radius:17px;padding:10px 14px;font-weight:900;white-space:nowrap;box-shadow:0 4px 13px #4b396b12}.nav button.active{background:var(--p);color:#fff}
+.lesson{display:none;background:#fff;border:2px solid #eee8ff;border-radius:25px;padding:20px;margin:13px 0;box-shadow:0 8px 24px #4b396b12}.lesson.active{display:block}.lessonHead{display:flex;justify-content:space-between;gap:10px;align-items:center}.level{background:#e9e1ff;color:#5b3fc4;padding:6px 12px;border-radius:99px;font-weight:900}.num{color:#737b90;font-weight:800}h2{font-size:clamp(25px,5vw,34px);margin:12px 0 6px}.intro{font-size:16px;color:#596279}
+.vocab{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}.vocab button{border:0;border-radius:20px;padding:13px 7px;background:#f3edff;min-height:120px;font-weight:900;color:var(--ink)}.vocab button:nth-child(2n){background:#fff3c7}.vocab button:nth-child(3n){background:#e5f8ff}.vocab button:nth-child(4n){background:#e6faed}.big{display:block;font-size:38px}.vocab small{display:block;color:#596279;margin-top:7px}
+.learnBox{background:#fff6d6;border-left:7px solid var(--y);border-radius:17px;padding:17px;margin:14px 0}.en{font-size:22px;font-weight:950}.tr{color:#697184;margin-top:4px}.listen{border:0;background:var(--b);color:#07384b;border-radius:13px;padding:9px 13px;font-weight:900;margin-top:10px}
+.mission{background:linear-gradient(135deg,#e9f9ff,#fff0fa);padding:15px;border-radius:18px}.quiz{background:#f5f0ff;border-radius:20px;padding:17px;margin-top:15px}.quiz h3{margin-top:0}.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-bottom:12px}.choices button{border:3px solid #e4dcf7;background:#fff;border-radius:16px;padding:12px;font-weight:850;min-height:52px}.choices button.correct{border-color:var(--g);background:#e9fff0}.choices button.wrong{border-color:#ff8888;background:#fff0f0}.feedback{min-height:26px;font-weight:900}.complete{border:0;background:var(--pk);color:#fff;padding:13px 18px;border-radius:17px;font-weight:950;margin-top:10px}
+.home{background:#fff;border-radius:25px;padding:24px;margin-top:13px;box-shadow:0 8px 24px #4b396b12}.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.levelCard{border-radius:22px;padding:18px;color:#fff;min-height:170px}.a0{background:linear-gradient(135deg,#ff70a8,#ff9b65)}.a1{background:linear-gradient(135deg,#6b5cff,#43bfff)}.a2{background:linear-gradient(135deg,#43c982,#a5d94d)}.levelCard h3{font-size:24px;margin:0 0 7px}.homebtn{border:0;background:var(--p);color:white;border-radius:16px;padding:12px 17px;font-weight:900;margin-top:14px}.footer{text-align:center;padding:25px;color:#747c90;font-size:13px}
+@media(max-width:700px){.app{padding:10px}.hero{padding:20px}.hero p{padding-right:60px}.bunny{font-size:48px;right:12px}.vocab{grid-template-columns:repeat(2,1fr)}.choices{grid-template-columns:1fr}.lesson{padding:16px}.levels{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="hero"><div class="bunny">🐰</div><h1>🌈 Lena's English Adventure</h1><p>A0'dan A2'ye kadar İngilizceyi oyunlarla, hikâyelerle, dinleyerek ve konuşarak öğren!</p></header>
+<div class="progress"><b>🌟 İngilizce macerası</b> <span id="pt">0 / 30</span><div class="bar"><div class="fill" id="pf"></div></div><div class="stats"><span class="badge">⭐ <span id="stars">0</span> yıldız</span><span class="badge">🏆 <span id="score">0</span> puan</span></div></div>
+<section class="home" id="home"><h2>Merhaba Lena! 👋</h2><p>Pamuk Şeker seninle birlikte İngilizce öğrenecek. Her derste <b>dinle → söyle → oyna → cümle kur</b>!</p>
+<div style="margin:18px 0 10px;text-align:center">
+  <h3 style="margin:0 0 6px;font-size:21px">🗺️ English Adventure Yol Haritası</h3>
+  <p style="margin:0;color:#65758a;font-size:14px">Önce A0, sonra A1 ve en sonunda A2 seviyesine birlikte ilerleyeceğiz.</p>
+</div>
+<div class="levels" style="cursor:default">
+  <div class="levelCard a0" style="cursor:default">
+    <h3>🌱 A0</h3><p>Temel kelimeler, renkler, sayılar ve ilk cümleler.</p><b>10 ders</b>
+  </div>
+  <div class="levelCard a1" style="cursor:default">
+    <h3>🌸 A1</h3><p>Günlük hayat, hobiler, alışveriş ve konuşma.</p><b>10 ders</b>
+  </div>
+  <div class="levelCard a2" style="cursor:default">
+    <h3>🚀 A2</h3><p>Hikâyeler, seyahat, yönler ve daha uzun cümleler.</p><b>10 ders</b>
+  </div>
+</div>
+<div style="text-align:center;margin:10px 0 6px;color:#65758a;font-size:14px">
+  👇 İlk derse başlamak için aşağıdaki butona tıkla.
+</div>
+<button class="homebtn" onclick="startCourse()">🚀 İlk derse başlayalım!</button>
+<div class="miniGame" style="background:linear-gradient(135deg,#fff7d6,#eef7ff);border-radius:20px;padding:16px;margin-top:16px">
+  <h3>🎮 Pamuk Şeker'in Mini Oyunu</h3>
+  <p>Doğru İngilizce kelimeyi seç!</p>
+  <div class="gameQ" id="gameQ">Hazır mısın?</div>
+  <div class="gameOptions" id="gameOptions"></div>
+  <div id="gameFeedback" style="font-weight:700;margin-top:10px"></div>
+</div>
+</section>
+<nav class="nav" id="nav"></nav>
+<div id="lessons">
+<section class="lesson" id="lesson0">
+<div class="lessonHead"><span class="level">A0</span><span class="num">Ders 1 / 30</span></div>
+<h2>👋 Hello, Lena!</h2>
+<p class="intro">Bugünün kelimeleri: <b>Hello • Goodbye • My name is • I am seven</b></p>
+<div class="vocab">
+<button onclick="speak('Hello')"><span class="big">🌟</span><b>Hello</b><small>🔊 Dinle</small></button><button onclick="speak('Goodbye')"><span class="big">🍀</span><b>Goodbye</b><small>🔊 Dinle</small></button><button onclick="speak('My name is')"><span class="big">🎈</span><b>My name is</b><small>🔊 Dinle</small></button><button onclick="speak('I am seven')"><span class="big">🧸</span><b>I am seven</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">Hello! My name is Lena.</div><div class="tr">Merhaba! Benim adım Lena.</div><button class="listen" onclick="speak('Hello! My name is Lena.')">🔊 Cümleyi dinle</button><button id="nextLessonBtn" onclick="goNextLesson()" style="display:none;margin-top:10px">➡️ Sonraki Ders</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“Merhaba” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">Hello</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">Hello! My name is Lena.</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(0)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson1">
+<div class="lessonHead"><span class="level">A0</span><span class="num">Ders 2 / 30</span></div>
+<h2>🎨 Color Rainbow</h2>
+<p class="intro">Bugünün kelimeleri: <b>red • blue • yellow • green • pink • purple</b></p>
+<div class="vocab">
+<button onclick="speak('red')"><span class="big">🌟</span><b>red</b><small>🔊 Dinle</small></button><button onclick="speak('blue')"><span class="big">🍀</span><b>blue</b><small>🔊 Dinle</small></button><button onclick="speak('yellow')"><span class="big">🎈</span><b>yellow</b><small>🔊 Dinle</small></button><button onclick="speak('green')"><span class="big">🧸</span><b>green</b><small>🔊 Dinle</small></button><button onclick="speak('pink')"><span class="big">✨</span><b>pink</b><small>🔊 Dinle</small></button><button onclick="speak('purple')"><span class="big">🎵</span><b>purple</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">It is pink.</div><div class="tr">O pembe.</div><button class="listen" onclick="speak('It is pink.')">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“kırmızı” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">red</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">It is pink.</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(1)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson2">
+<div class="lessonHead"><span class="level">A0</span><span class="num">Ders 3 / 30</span></div>
+<h2>🔢 Number Castle</h2>
+<p class="intro">Bugünün kelimeleri: <b>one–twenty</b></p>
+<div class="vocab">
+<button onclick="speak('one–twenty')"><span class="big">🌟</span><b>one–twenty</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">I am seven years old.</div><div class="tr">Ben yedi yaşındayım.</div><button class="listen" onclick="speak('I am seven years old.')">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“bir–yirmi” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">one–twenty</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">I am seven years old.</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(2)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson3">
+<div class="lessonHead"><span class="level">A0</span><span class="num">Ders 4 / 30</span></div>
+<h2>👨‍👩‍👧 Family</h2>
+<p class="intro">Bugünün kelimeleri: <b>mum • dad • sister • brother • family</b></p>
+<div class="vocab">
+<button onclick="speak('mum')"><span class="big">🌟</span><b>mum</b><small>🔊 Dinle</small></button><button onclick="speak('dad')"><span class="big">🍀</span><b>dad</b><small>🔊 Dinle</small></button><button onclick="speak('sister')"><span class="big">🎈</span><b>sister</b><small>🔊 Dinle</small></button><button onclick="speak('brother')"><span class="big">🧸</span><b>brother</b><small>🔊 Dinle</small></button><button onclick="speak('family')"><span class="big">✨</span><b>family</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">This is my dad.</div><div class="tr">Bu benim babam.</div><button class="listen" onclick="speak('This is my dad.')">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“anne” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">mum</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">This is my dad.</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(3)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson4">
+<div class="lessonHead"><span class="level">A0</span><span class="num">Ders 5 / 30</span></div>
+<h2>🐾 Animal Friends</h2>
+<p class="intro">Bugünün kelimeleri: <b>cat • dog • bird • rabbit • fish • horse</b></p>
+<div class="vocab">
+<button onclick="speak('cat')"><span class="big">🌟</span><b>cat</b><small>🔊 Dinle</small></button><button onclick="speak('dog')"><span class="big">🍀</span><b>dog</b><small>🔊 Dinle</small></button><button onclick="speak('bird')"><span class="big">🎈</span><b>bird</b><small>🔊 Dinle</small></button><button onclick="speak('rabbit')"><span class="big">🧸</span><b>rabbit</b><small>🔊 Dinle</small></button><button onclick="speak('fish')"><span class="big">✨</span><b>fish</b><small>🔊 Dinle</small></button><button onclick="speak('horse')"><span class="big">🎵</span><b>horse</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">It is a rabbit.</div><div class="tr">O bir tavşan.</div><button class="listen" onclick="speak('It is a rabbit.')">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“kedi” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">cat</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">It is a rabbit.</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(4)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson5">
+<div class="lessonHead"><span class="level">A0</span><span class="num">Ders 6 / 30</span></div>
+<h2>😊 Feelings</h2>
+<p class="intro">Bugünün kelimeleri: <b>happy • sad • tired • hungry • thirsty • angry</b></p>
+<div class="vocab">
+<button onclick="speak('happy')"><span class="big">🌟</span><b>happy</b><small>🔊 Dinle</small></button><button onclick="speak('sad')"><span class="big">🍀</span><b>sad</b><small>🔊 Dinle</small></button><button onclick="speak('tired')"><span class="big">🎈</span><b>tired</b><small>🔊 Dinle</small></button><button onclick="speak('hungry')"><span class="big">🧸</span><b>hungry</b><small>🔊 Dinle</small></button><button onclick="speak('thirsty')"><span class="big">✨</span><b>thirsty</b><small>🔊 Dinle</small></button><button onclick="speak('angry')"><span class="big">🎵</span><b>angry</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">I am happy.</div><div class="tr">Ben mutluyum.</div><button class="listen" onclick="speak('I am happy.')">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“mutlu” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">happy</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">I am happy.</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(5)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson6">
+<div class="lessonHead"><span class="level">A0</span><span class="num">Ders 7 / 30</span></div>
+<h2>🏫 School Time</h2>
+<p class="intro">Bugünün kelimeleri: <b>school • book • pencil • bag • teacher • friend</b></p>
+<div class="vocab">
+<button onclick="speak('school')"><span class="big">🌟</span><b>school</b><small>🔊 Dinle</small></button><button onclick="speak('book')"><span class="big">🍀</span><b>book</b><small>🔊 Dinle</small></button><button onclick="speak('pencil')"><span class="big">🎈</span><b>pencil</b><small>🔊 Dinle</small></button><button onclick="speak('bag')"><span class="big">🧸</span><b>bag</b><small>🔊 Dinle</small></button><button onclick="speak('teacher')"><span class="big">✨</span><b>teacher</b><small>🔊 Dinle</small></button><button onclick="speak('friend')"><span class="big">🎵</span><b>friend</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">This is my book.</div><div class="tr">Bu benim kitabım.</div><button class="listen" onclick="speak('This is my book.')">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“okul” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">school</button><button onclick="check(this,true)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">This is my book.</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(6)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson7">
+<div class="lessonHead"><span class="level">A0</span><span class="num">Ders 8 / 30</span></div>
+<h2>🍎 Yummy Food</h2>
+<p class="intro">Bugünün kelimeleri: <b>apple • banana • milk • water • bread • cheese</b></p>
+<div class="vocab">
+<button onclick="speak('apple')"><span class="big">🌟</span><b>apple</b><small>🔊 Dinle</small></button><button onclick="speak('banana')"><span class="big">🍀</span><b>banana</b><small>🔊 Dinle</small></button><button onclick="speak('milk')"><span class="big">🎈</span><b>milk</b><small>🔊 Dinle</small></button><button onclick="speak('water')"><span class="big">🧸</span><b>water</b><small>🔊 Dinle</small></button><button onclick="speak('bread')"><span class="big">✨</span><b>bread</b><small>🔊 Dinle</small></button><button onclick="speak('cheese')"><span class="big">🎵</span><b>cheese</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">I like apples.</div><div class="tr">Elmaları severim.</div><button class="listen" onclick="speak('I like apples.')">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“elma” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">apple</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">I like apples.</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(7)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson8">
+<div class="lessonHead"><span class="level">A0</span><span class="num">Ders 9 / 30</span></div>
+<h2>🏠 My Home</h2>
+<p class="intro">Bugünün kelimeleri: <b>house • room • bed • door • table • chair</b></p>
+<div class="vocab">
+<button onclick="speak('house')"><span class="big">🌟</span><b>house</b><small>🔊 Dinle</small></button><button onclick="speak('room')"><span class="big">🍀</span><b>room</b><small>🔊 Dinle</small></button><button onclick="speak('bed')"><span class="big">🎈</span><b>bed</b><small>🔊 Dinle</small></button><button onclick="speak('door')"><span class="big">🧸</span><b>door</b><small>🔊 Dinle</small></button><button onclick="speak('table')"><span class="big">✨</span><b>table</b><small>🔊 Dinle</small></button><button onclick="speak('chair')"><span class="big">🎵</span><b>chair</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">This is my room.</div><div class="tr">Bu benim odam.</div><button class="listen" onclick="speak('This is my room.')">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“ev” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">house</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">This is my room.</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(8)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson9">
+<div class="lessonHead"><span class="level">A0</span><span class="num">Ders 10 / 30</span></div>
+<h2>🐰 Pamuk Şeker</h2>
+<p class="intro">Bugünün kelimeleri: <b>rabbit • toy • white • soft • sleep • good night</b></p>
+<div class="vocab">
+<button onclick="speak('rabbit')"><span class="big">🌟</span><b>rabbit</b><small>🔊 Dinle</small></button><button onclick="speak('toy')"><span class="big">🍀</span><b>toy</b><small>🔊 Dinle</small></button><button onclick="speak('white')"><span class="big">🎈</span><b>white</b><small>🔊 Dinle</small></button><button onclick="speak('soft')"><span class="big">🧸</span><b>soft</b><small>🔊 Dinle</small></button><button onclick="speak('sleep')"><span class="big">✨</span><b>sleep</b><small>🔊 Dinle</small></button><button onclick="speak('good night')"><span class="big">🎵</span><b>good night</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">This is my rabbit. His name is Pamuk Şeker.</div><div class="tr">Bu benim tavşanım. Adı Pamuk Şeker.</div><button class="listen" onclick="speak('This is my rabbit. His name is Pamuk Şeker.')">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“tavşan” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">rabbit</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">This is my rabbit. His name is Pamuk Şeker.</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(9)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson10">
+<div class="lessonHead"><span class="level">A1</span><span class="num">Ders 11 / 30</span></div>
+<h2>⏰ My Day</h2>
+<p class="intro">Bugünün kelimeleri: <b>wake up • eat • go • play • read • sleep</b></p>
+<div class="vocab">
+<button onclick="speak('wake up')"><span class="big">🌟</span><b>wake up</b><small>🔊 Dinle</small></button><button onclick="speak('eat')"><span class="big">🍀</span><b>eat</b><small>🔊 Dinle</small></button><button onclick="speak('go')"><span class="big">🎈</span><b>go</b><small>🔊 Dinle</small></button><button onclick="speak('play')"><span class="big">🧸</span><b>play</b><small>🔊 Dinle</small></button><button onclick="speak('read')"><span class="big">✨</span><b>read</b><small>🔊 Dinle</small></button><button onclick="speak('sleep')"><span class="big">🎵</span><b>sleep</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">I get up at seven.</div><div class="tr">Saat yedide kalkarım.</div><button class="listen" onclick="speak('I get up at seven.')">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“uyanmak” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">wake up</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">I get up at seven.</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(10)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson11">
+<div class="lessonHead"><span class="level">A1</span><span class="num">Ders 12 / 30</span></div>
+<h2>👕 Clothes</h2>
+<p class="intro">Bugünün kelimeleri: <b>T-shirt • trousers • shoes • dress • jacket • hat</b></p>
+<div class="vocab">
+<button onclick="speak('T-shirt')"><span class="big">🌟</span><b>T-shirt</b><small>🔊 Dinle</small></button><button onclick="speak('trousers')"><span class="big">🍀</span><b>trousers</b><small>🔊 Dinle</small></button><button onclick="speak('shoes')"><span class="big">🎈</span><b>shoes</b><small>🔊 Dinle</small></button><button onclick="speak('dress')"><span class="big">🧸</span><b>dress</b><small>🔊 Dinle</small></button><button onclick="speak('jacket')"><span class="big">✨</span><b>jacket</b><small>🔊 Dinle</small></button><button onclick="speak('hat')"><span class="big">🎵</span><b>hat</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">I am wearing a blue T-shirt.</div><div class="tr">Mavi bir tişört giyiyorum.</div><button class="listen" onclick="speak('I am wearing a blue T-shirt.')">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“tişört” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">T-shirt</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">I am wearing a blue T-shirt.</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(11)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson12">
+<div class="lessonHead"><span class="level">A1</span><span class="num">Ders 13 / 30</span></div>
+<h2>☀️ Weather</h2>
+<p class="intro">Bugünün kelimeleri: <b>sunny • rainy • windy • cloudy • hot • cold</b></p>
+<div class="vocab">
+<button onclick="speak('sunny')"><span class="big">🌟</span><b>sunny</b><small>🔊 Dinle</small></button><button onclick="speak('rainy')"><span class="big">🍀</span><b>rainy</b><small>🔊 Dinle</small></button><button onclick="speak('windy')"><span class="big">🎈</span><b>windy</b><small>🔊 Dinle</small></button><button onclick="speak('cloudy')"><span class="big">🧸</span><b>cloudy</b><small>🔊 Dinle</small></button><button onclick="speak('hot')"><span class="big">✨</span><b>hot</b><small>🔊 Dinle</small></button><button onclick="speak('cold')"><span class="big">🎵</span><b>cold</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">It is sunny today.</div><div class="tr">Bugün hava güneşli.</div><button class="listen" onclick="speak('It is sunny today.')">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“güneşli” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">sunny</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">It is sunny today.</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(12)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson13">
+<div class="lessonHead"><span class="level">A1</span><span class="num">Ders 14 / 30</span></div>
+<h2>🎮 Hobbies</h2>
+<p class="intro">Bugünün kelimeleri: <b>play • draw • read • swim • ride • watch</b></p>
+<div class="vocab">
+<button onclick="speak('play')"><span class="big">🌟</span><b>play</b><small>🔊 Dinle</small></button><button onclick="speak('draw')"><span class="big">🍀</span><b>draw</b><small>🔊 Dinle</small></button><button onclick="speak('read')"><span class="big">🎈</span><b>read</b><small>🔊 Dinle</small></button><button onclick="speak('swim')"><span class="big">🧸</span><b>swim</b><small>🔊 Dinle</small></button><button onclick="speak('ride')"><span class="big">✨</span><b>ride</b><small>🔊 Dinle</small></button><button onclick="speak('watch')"><span class="big">🎵</span><b>watch</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">I like drawing.</div><div class="tr">Resim yapmayı severim.</div><button class="listen" onclick="speak('I like drawing.')">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“oynamak” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">play</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">I like drawing.</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(13)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson14">
+<div class="lessonHead"><span class="level">A1</span><span class="num">Ders 15 / 30</span></div>
+<h2>❤️ Likes & Dislikes</h2>
+<p class="intro">Bugünün kelimeleri: <b>like • love • don't like • favorite</b></p>
+<div class="vocab">
+<button onclick="speak('like')"><span class="big">🌟</span><b>like</b><small>🔊 Dinle</small></button><button onclick="speak('love')"><span class="big">🍀</span><b>love</b><small>🔊 Dinle</small></button><button onclick="speak("don't like")"><span class="big">🎈</span><b>don't like</b><small>🔊 Dinle</small></button><button onclick="speak('favorite')"><span class="big">🧸</span><b>favorite</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">I don't like broccoli.</div><div class="tr">Brokoliyi sevmem.</div><button class="listen" onclick="speak("I don't like broccoli.")">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“sevmek” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">like</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">I don't like broccoli.</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(14)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson15">
+<div class="lessonHead"><span class="level">A1</span><span class="num">Ders 16 / 30</span></div>
+<h2>🧸 Can & Can't</h2>
+<p class="intro">Bugünün kelimeleri: <b>can • can't • sing • dance • run • swim</b></p>
+<div class="vocab">
+<button onclick="speak('can')"><span class="big">🌟</span><b>can</b><small>🔊 Dinle</small></button><button onclick="speak("can't")"><span class="big">🍀</span><b>can't</b><small>🔊 Dinle</small></button><button onclick="speak('sing')"><span class="big">🎈</span><b>sing</b><small>🔊 Dinle</small></button><button onclick="speak('dance')"><span class="big">🧸</span><b>dance</b><small>🔊 Dinle</small></button><button onclick="speak('run')"><span class="big">✨</span><b>run</b><small>🔊 Dinle</small></button><button onclick="speak('swim')"><span class="big">🎵</span><b>swim</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">I can swim.</div><div class="tr">Yüzebilirim.</div><button class="listen" onclick="speak('I can swim.')">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“-ebilmek / yapabilmek” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">can</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">I can swim.</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(15)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson16">
+<div class="lessonHead"><span class="level">A1</span><span class="num">Ders 17 / 30</span></div>
+<h2>🏡 My House</h2>
+<p class="intro">Bugünün kelimeleri: <b>there is • there are • kitchen • bedroom • garden</b></p>
+<div class="vocab">
+<button onclick="speak('there is')"><span class="big">🌟</span><b>there is</b><small>🔊 Dinle</small></button><button onclick="speak('there are')"><span class="big">🍀</span><b>there are</b><small>🔊 Dinle</small></button><button onclick="speak('kitchen')"><span class="big">🎈</span><b>kitchen</b><small>🔊 Dinle</small></button><button onclick="speak('bedroom')"><span class="big">🧸</span><b>bedroom</b><small>🔊 Dinle</small></button><button onclick="speak('garden')"><span class="big">✨</span><b>garden</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">There is a bed in my room.</div><div class="tr">Odamda bir yatak var.</div><button class="listen" onclick="speak('There is a bed in my room.')">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“var” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">there is</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">There is a bed in my room.</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(16)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson17">
+<div class="lessonHead"><span class="level">A1</span><span class="num">Ders 18 / 30</span></div>
+<h2>🛍️ Shopping</h2>
+<p class="intro">Bugünün kelimeleri: <b>How much • please • money • cheap • expensive</b></p>
+<div class="vocab">
+<button onclick="speak('How much')"><span class="big">🌟</span><b>How much</b><small>🔊 Dinle</small></button><button onclick="speak('please')"><span class="big">🍀</span><b>please</b><small>🔊 Dinle</small></button><button onclick="speak('money')"><span class="big">🎈</span><b>money</b><small>🔊 Dinle</small></button><button onclick="speak('cheap')"><span class="big">🧸</span><b>cheap</b><small>🔊 Dinle</small></button><button onclick="speak('expensive')"><span class="big">✨</span><b>expensive</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">How much is it, please?</div><div class="tr">Lütfen, bu ne kadar?</div><button class="listen" onclick="speak('How much is it, please?')">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“ne kadar” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">How much</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">How much is it, please?</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(17)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson18">
+<div class="lessonHead"><span class="level">A1</span><span class="num">Ders 19 / 30</span></div>
+<h2>🍽️ Restaurant</h2>
+<p class="intro">Bugünün kelimeleri: <b>menu • water • chicken • rice • juice • bill</b></p>
+<div class="vocab">
+<button onclick="speak('menu')"><span class="big">🌟</span><b>menu</b><small>🔊 Dinle</small></button><button onclick="speak('water')"><span class="big">🍀</span><b>water</b><small>🔊 Dinle</small></button><button onclick="speak('chicken')"><span class="big">🎈</span><b>chicken</b><small>🔊 Dinle</small></button><button onclick="speak('rice')"><span class="big">🧸</span><b>rice</b><small>🔊 Dinle</small></button><button onclick="speak('juice')"><span class="big">✨</span><b>juice</b><small>🔊 Dinle</small></button><button onclick="speak('bill')"><span class="big">🎵</span><b>bill</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">Can I have some water, please?</div><div class="tr">Biraz su alabilir miyim, lütfen?</div><button class="listen" onclick="speak('Can I have some water, please?')">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“menü” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">menu</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">Can I have some water, please?</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(18)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson19">
+<div class="lessonHead"><span class="level">A1</span><span class="num">Ders 20 / 30</span></div>
+<h2>🎂 Birthday Adventure</h2>
+<p class="intro">Bugünün kelimeleri: <b>birthday • present • cake • candles • party</b></p>
+<div class="vocab">
+<button onclick="speak('birthday')"><span class="big">🌟</span><b>birthday</b><small>🔊 Dinle</small></button><button onclick="speak('present')"><span class="big">🍀</span><b>present</b><small>🔊 Dinle</small></button><button onclick="speak('cake')"><span class="big">🎈</span><b>cake</b><small>🔊 Dinle</small></button><button onclick="speak('candles')"><span class="big">🧸</span><b>candles</b><small>🔊 Dinle</small></button><button onclick="speak('party')"><span class="big">✨</span><b>party</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">My birthday is in May.</div><div class="tr">Doğum günüm Mayıs ayında.</div><button class="listen" onclick="speak('My birthday is in May.')">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“doğum günü” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">birthday</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">My birthday is in May.</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(19)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson20">
+<div class="lessonHead"><span class="level">A2</span><span class="num">Ders 21 / 30</span></div>
+<h2>🕰️ Yesterday</h2>
+<p class="intro">Bugünün kelimeleri: <b>was • were • went • played • watched • visited</b></p>
+<div class="vocab">
+<button onclick="speak('was')"><span class="big">🌟</span><b>was</b><small>🔊 Dinle</small></button><button onclick="speak('were')"><span class="big">🍀</span><b>were</b><small>🔊 Dinle</small></button><button onclick="speak('went')"><span class="big">🎈</span><b>went</b><small>🔊 Dinle</small></button><button onclick="speak('played')"><span class="big">🧸</span><b>played</b><small>🔊 Dinle</small></button><button onclick="speak('watched')"><span class="big">✨</span><b>watched</b><small>🔊 Dinle</small></button><button onclick="speak('visited')"><span class="big">🎵</span><b>visited</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">I went to the park yesterday.</div><div class="tr">Dün parka gittim.</div><button class="listen" onclick="speak('I went to the park yesterday.')">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“idi” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">was</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">I went to the park yesterday.</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(20)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson21">
+<div class="lessonHead"><span class="level">A2</span><span class="num">Ders 22 / 30</span></div>
+<h2>📖 My Story</h2>
+<p class="intro">Bugünün kelimeleri: <b>first • then • after that • finally</b></p>
+<div class="vocab">
+<button onclick="speak('first')"><span class="big">🌟</span><b>first</b><small>🔊 Dinle</small></button><button onclick="speak('then')"><span class="big">🍀</span><b>then</b><small>🔊 Dinle</small></button><button onclick="speak('after that')"><span class="big">🎈</span><b>after that</b><small>🔊 Dinle</small></button><button onclick="speak('finally')"><span class="big">🧸</span><b>finally</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">First I ate breakfast. Then I went to school.</div><div class="tr">Önce kahvaltı yaptım. Sonra okula gittim.</div><button class="listen" onclick="speak('First I ate breakfast. Then I went to school.')">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“ilk” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">first</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">First I ate breakfast. Then I went to school.</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(21)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson22">
+<div class="lessonHead"><span class="level">A2</span><span class="num">Ders 23 / 30</span></div>
+<h2>✈️ Travel</h2>
+<p class="intro">Bugünün kelimeleri: <b>airport • plane • ticket • passport • hotel • suitcase</b></p>
+<div class="vocab">
+<button onclick="speak('airport')"><span class="big">🌟</span><b>airport</b><small>🔊 Dinle</small></button><button onclick="speak('plane')"><span class="big">🍀</span><b>plane</b><small>🔊 Dinle</small></button><button onclick="speak('ticket')"><span class="big">🎈</span><b>ticket</b><small>🔊 Dinle</small></button><button onclick="speak('passport')"><span class="big">🧸</span><b>passport</b><small>🔊 Dinle</small></button><button onclick="speak('hotel')"><span class="big">✨</span><b>hotel</b><small>🔊 Dinle</small></button><button onclick="speak('suitcase')"><span class="big">🎵</span><b>suitcase</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">I have my ticket and passport.</div><div class="tr">Biletim ve pasaportum yanımda.</div><button class="listen" onclick="speak('I have my ticket and passport.')">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“havaalanı” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">airport</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">I have my ticket and passport.</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(22)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson23">
+<div class="lessonHead"><span class="level">A2</span><span class="num">Ders 24 / 30</span></div>
+<h2>🏨 Hotel</h2>
+<p class="intro">Bugünün kelimeleri: <b>room • key • breakfast • towel • help • reception</b></p>
+<div class="vocab">
+<button onclick="speak('room')"><span class="big">🌟</span><b>room</b><small>🔊 Dinle</small></button><button onclick="speak('key')"><span class="big">🍀</span><b>key</b><small>🔊 Dinle</small></button><button onclick="speak('breakfast')"><span class="big">🎈</span><b>breakfast</b><small>🔊 Dinle</small></button><button onclick="speak('towel')"><span class="big">🧸</span><b>towel</b><small>🔊 Dinle</small></button><button onclick="speak('help')"><span class="big">✨</span><b>help</b><small>🔊 Dinle</small></button><button onclick="speak('reception')"><span class="big">🎵</span><b>reception</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">Can I have a new towel, please?</div><div class="tr">Yeni bir havlu alabilir miyim, lütfen?</div><button class="listen" onclick="speak('Can I have a new towel, please?')">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“oda” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">room</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">Can I have a new towel, please?</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(23)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson24">
+<div class="lessonHead"><span class="level">A2</span><span class="num">Ders 25 / 30</span></div>
+<h2>🗺️ Directions</h2>
+<p class="intro">Bugünün kelimeleri: <b>left • right • straight • near • next to • opposite</b></p>
+<div class="vocab">
+<button onclick="speak('left')"><span class="big">🌟</span><b>left</b><small>🔊 Dinle</small></button><button onclick="speak('right')"><span class="big">🍀</span><b>right</b><small>🔊 Dinle</small></button><button onclick="speak('straight')"><span class="big">🎈</span><b>straight</b><small>🔊 Dinle</small></button><button onclick="speak('near')"><span class="big">🧸</span><b>near</b><small>🔊 Dinle</small></button><button onclick="speak('next to')"><span class="big">✨</span><b>next to</b><small>🔊 Dinle</small></button><button onclick="speak('opposite')"><span class="big">🎵</span><b>opposite</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">Go straight and turn left.</div><div class="tr">Düz git ve sola dön.</div><button class="listen" onclick="speak('Go straight and turn left.')">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“sol” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">left</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">Go straight and turn left.</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(24)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson25">
+<div class="lessonHead"><span class="level">A2</span><span class="num">Ders 26 / 30</span></div>
+<h2>📏 Compare!</h2>
+<p class="intro">Bugünün kelimeleri: <b>big • bigger • small • smaller • fast • faster</b></p>
+<div class="vocab">
+<button onclick="speak('big')"><span class="big">🌟</span><b>big</b><small>🔊 Dinle</small></button><button onclick="speak('bigger')"><span class="big">🍀</span><b>bigger</b><small>🔊 Dinle</small></button><button onclick="speak('small')"><span class="big">🎈</span><b>small</b><small>🔊 Dinle</small></button><button onclick="speak('smaller')"><span class="big">🧸</span><b>smaller</b><small>🔊 Dinle</small></button><button onclick="speak('fast')"><span class="big">✨</span><b>fast</b><small>🔊 Dinle</small></button><button onclick="speak('faster')"><span class="big">🎵</span><b>faster</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">The elephant is bigger than the dog.</div><div class="tr">Fil köpekten daha büyük.</div><button class="listen" onclick="speak('The elephant is bigger than the dog.')">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“büyük” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">big</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">The elephant is bigger than the dog.</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(25)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson26">
+<div class="lessonHead"><span class="level">A2</span><span class="num">Ders 27 / 30</span></div>
+<h2>💭 My Opinion</h2>
+<p class="intro">Bugünün kelimeleri: <b>think • like • because • interesting • fun • boring</b></p>
+<div class="vocab">
+<button onclick="speak('think')"><span class="big">🌟</span><b>think</b><small>🔊 Dinle</small></button><button onclick="speak('like')"><span class="big">🍀</span><b>like</b><small>🔊 Dinle</small></button><button onclick="speak('because')"><span class="big">🎈</span><b>because</b><small>🔊 Dinle</small></button><button onclick="speak('interesting')"><span class="big">🧸</span><b>interesting</b><small>🔊 Dinle</small></button><button onclick="speak('fun')"><span class="big">✨</span><b>fun</b><small>🔊 Dinle</small></button><button onclick="speak('boring')"><span class="big">🎵</span><b>boring</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">I like it because it is fun.</div><div class="tr">Onu seviyorum çünkü eğlenceli.</div><button class="listen" onclick="speak('I like it because it is fun.')">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“düşünmek” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">think</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">I like it because it is fun.</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(26)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson27">
+<div class="lessonHead"><span class="level">A2</span><span class="num">Ders 28 / 30</span></div>
+<h2>📱 Everyday Messages</h2>
+<p class="intro">Bugünün kelimeleri: <b>call • text • wait • come • later • now</b></p>
+<div class="vocab">
+<button onclick="speak('call')"><span class="big">🌟</span><b>call</b><small>🔊 Dinle</small></button><button onclick="speak('text')"><span class="big">🍀</span><b>text</b><small>🔊 Dinle</small></button><button onclick="speak('wait')"><span class="big">🎈</span><b>wait</b><small>🔊 Dinle</small></button><button onclick="speak('come')"><span class="big">🧸</span><b>come</b><small>🔊 Dinle</small></button><button onclick="speak('later')"><span class="big">✨</span><b>later</b><small>🔊 Dinle</small></button><button onclick="speak('now')"><span class="big">🎵</span><b>now</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">Can you call me later?</div><div class="tr">Beni daha sonra arayabilir misin?</div><button class="listen" onclick="speak('Can you call me later?')">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“aramak” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">call</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">Can you call me later?</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(27)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson28">
+<div class="lessonHead"><span class="level">A2</span><span class="num">Ders 29 / 30</span></div>
+<h2>🧩 Problem Solver</h2>
+<p class="intro">Bugünün kelimeleri: <b>lost • broken • sick • help • need • find</b></p>
+<div class="vocab">
+<button onclick="speak('lost')"><span class="big">🌟</span><b>lost</b><small>🔊 Dinle</small></button><button onclick="speak('broken')"><span class="big">🍀</span><b>broken</b><small>🔊 Dinle</small></button><button onclick="speak('sick')"><span class="big">🎈</span><b>sick</b><small>🔊 Dinle</small></button><button onclick="speak('help')"><span class="big">🧸</span><b>help</b><small>🔊 Dinle</small></button><button onclick="speak('need')"><span class="big">✨</span><b>need</b><small>🔊 Dinle</small></button><button onclick="speak('find')"><span class="big">🎵</span><b>find</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">I can't find my bag. Can you help me?</div><div class="tr">Çantamı bulamıyorum. Bana yardım edebilir misin?</div><button class="listen" onclick="speak("I can't find my bag. Can you help me?")">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“kayıp / kayboldum” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">lost</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">I can't find my bag. Can you help me?</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(28)">⭐ Dersi tamamladım</button>
+</section>
+<section class="lesson" id="lesson29">
+<div class="lessonHead"><span class="level">A2</span><span class="num">Ders 30 / 30</span></div>
+<h2>🌍 My English Adventure</h2>
+<p class="intro">Bugünün kelimeleri: <b>review • story • speaking • listening • reading</b></p>
+<div class="vocab">
+<button onclick="speak('review')"><span class="big">🌟</span><b>review</b><small>🔊 Dinle</small></button><button onclick="speak('story')"><span class="big">🍀</span><b>story</b><small>🔊 Dinle</small></button><button onclick="speak('speaking')"><span class="big">🎈</span><b>speaking</b><small>🔊 Dinle</small></button><button onclick="speak('listening')"><span class="big">🧸</span><b>listening</b><small>🔊 Dinle</small></button><button onclick="speak('reading')"><span class="big">✨</span><b>reading</b><small>🔊 Dinle</small></button>
+</div>
+<div class="learnBox"><div class="en">I can speak English and tell a story.</div><div class="tr">İngilizce konuşabilir ve bir hikâye anlatabilirim.</div><button class="listen" onclick="speak('I can speak English and tell a story.')">🔊 Cümleyi dinle</button></div>
+<div class="mission"><b>🎯 Lena'nın görevi</b><p>Kelimeyi dinle → yüksek sesle söyle → cümleyi kendin tekrar et.</p></div>
+<div class="quiz"><h3>🧠 Mini oyun</h3><p>“tekrar / gözden geçirme” kelimesinin İngilizcesi hangisi?</p>
+<div class="choices"><button onclick="check(this,false)">dog</button><button onclick="check(this,true)">review</button><button onclick="check(this,false)">school</button><button onclick="check(this,false)">banana</button></div><div class="feedback"></div>
+<p>Doğru cümleyi seç:</p><div class="choices"><button onclick="check(this,true)">I can speak English and tell a story.</button><button onclick="check(this,false)">I am a book.</button><button onclick="check(this,false)">Goodbye yesterday.</button><button onclick="check(this,false)">Blue is eat.</button></div><div class="feedback"></div>
+</div>
+<button class="complete" onclick="completeLesson(29)">⭐ Dersi tamamladım</button>
+</section></div>
+<div class="footer">🐰 Pamuk Şeker ile öğren • ⭐ Yıldız topla • 🌈 İngilizce konuş</div>
+</div>
+<script>
+let stars=+localStorage.getItem("lenaStars")||0,score=+localStorage.getItem("lenaScore")||0,done=JSON.parse(localStorage.getItem("lenaDone")||"[]");
+const levels={A0:[0,9],A1:[10,19],A2:[20,29]};
+function update(){document.getElementById("stars").textContent=stars;document.getElementById("score").textContent=score;document.getElementById("pt").textContent=done.length+" / 30";document.getElementById("pf").style.width=(done.length/30*100)+"%";localStorage.setItem("lenaStars",stars);localStorage.setItem("lenaScore",score);localStorage.setItem("lenaDone",JSON.stringify(done));}
+function startCourse(){document.getElementById("home").style.display="none";showLesson(0);}
+function buildNav(){let n=document.getElementById("nav");["🌱 A0","🌸 A1","🚀 A2"].forEach((label,i)=>{let b=document.createElement("button");b.textContent=label;b.onclick=()=>showLesson([0,10,20][i]);n.appendChild(b);});}
+function showLesson(i){document.getElementById("home").style.display="none";document.querySelectorAll(".lesson").forEach(x=>x.classList.remove("active"));document.getElementById("lesson"+i).classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".nav button")[i<10?0:i<20?1:2].classList.add("active");scrollTo({top:0,behavior:"smooth"});}
+function speak(t){if(!("speechSynthesis" in window)){alert("Bu cihazda sesli okuma desteklenmiyor.");return}speechSynthesis.cancel();setTimeout(()=>{let u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=.8;u.pitch=1.08;let v=speechSynthesis.getVoices().find(x=>/^en/i.test(x.lang));if(v)u.voice=v;speechSynthesis.speak(u);},80);}
+function check(b,ok){let box=b.parentElement;box.querySelectorAll("button").forEach(x=>x.disabled=true);b.classList.add(ok?"correct":"wrong");let f=box.nextElementSibling;if(f&&f.classList.contains("feedback"))f.textContent=ok?"🎉 Süper! Doğru cevap!":"💡 Bir daha düşünelim. Doğru cevabı bulabilirsin!";if(ok){stars++;score+=10;update();}}
+function completeLesson(i){
+  const btn=document.querySelector("#lesson"+i+" .complete");
+  if(!done.includes(i)){done.push(i);stars+=2;score+=20;update();}
+  updateStreak(); updateLenaExtras(); updateAdventure(); showTodayWords(); const sb=document.getElementById("surpriseBox"); if(sb) sb.style.display="block"; if(btn){btn.disabled=true;btn.textContent=i<29?"✅ Tamamlandı — sonraki derse geçiliyor...":"🏆 Kurs tamamlandı!";} const nb=document.getElementById("nextLessonBtn"); if(nb&&i<29){nb.style.display="block";}
+  if(i<29){setTimeout(()=>showLesson(i+1),700);}
+  else{setTimeout(()=>alert("🏆 Tebrikler! Lena'nın A0 → A2 kursunu tamamladın!"),300);}
+}
+buildNav();update();
+
+// Lena extras: badges, review box, streak, mini game and manual next button.
+const lenaBadges = [
+  ["🌈","Renk Uzmanı",1],["🔢","Sayı Ustası",2],["🐶","Hayvan Dostu",3],
+  ["🍎","Food Star",4],["🏠","Home Explorer",5],["✈️","Travel Star",10],
+  ["💬","English Speaker",15],["🏆","A2 English Champion",30]
+];
+let reviewWords = JSON.parse(localStorage.getItem("lenaReviewWords") || "[]");
+let streak = Number(localStorage.getItem("lenaStreak") || 0);
+let lastStudy = localStorage.getItem("lenaLastStudy") || "";
+
+function updateLenaExtras(){
+  const sc=document.getElementById("starCount"), bc=document.getElementById("badgeCount"),
+        st=document.getElementById("streakCount"), rw=document.getElementById("reviewWords"),
+        ba=document.getElementById("badgeArea");
+  if(sc) sc.textContent=stars;
+  const earned=lenaBadges.filter(b=>done.length>=b[2]);
+  if(bc) bc.textContent=earned.length;
+  if(st) st.textContent=streak;
+  if(rw) rw.textContent=reviewWords.length ? reviewWords.slice(-10).join(" • ") : "Henüz tekrar kelimesi yok. Harika gidiyorsun!";
+  if(ba) ba.innerHTML=earned.map(b=>`<span style="background:#fff;border-radius:999px;padding:8px 12px;box-shadow:0 2px 8px #0001">${b[0]} ${b[1]}</span>`).join("");
+}
+function addReviewWord(word){
+  if(!word) return;
+  if(!reviewWords.includes(word)) reviewWords.push(word);
+  reviewWords=reviewWords.slice(-20);
+  localStorage.setItem("lenaReviewWords",JSON.stringify(reviewWords));
+  updateLenaExtras();
+}
+function updateStreak(){
+  const today=new Date().toISOString().slice(0,10);
+  if(lastStudy!==today){
+    streak=Math.max(1,streak+1);
+    lastStudy=today;
+    localStorage.setItem("lenaStreak",streak);
+    localStorage.setItem("lenaLastStudy",today);
+  }
+}
+function goNextLesson(){
+  const current=typeof currentLesson==="number"?currentLesson:0;
+  if(current<29) showLesson(current+1);
+}
+const lenaGameWords=[
+  ["Merhaba","hello",["hello","goodbye","blue"]],
+  ["Kırmızı","red",["red","cat","seven"]],
+  ["Kedi","cat",["dog","cat","house"]],
+  ["Mutlu","happy",["sad","happy","green"]],
+  ["Anne","mother",["mother","school","apple"]],
+  ["Su","water",["water","bread","yellow"]]
+];
+let gameIndex=0;
+function startMiniGame(){
+  const q=document.getElementById("gameQ"), o=document.getElementById("gameOptions"), f=document.getElementById("gameFeedback");
+  if(!q||!o)return;
+  const item=lenaGameWords[gameIndex%lenaGameWords.length];
+  q.textContent=`“${item[0]}” kelimesinin İngilizcesi hangisi?`;
+  o.innerHTML=item[2].map(x=>`<button onclick="answerGame('${x}','${item[1]}')" style="margin:4px;padding:10px 14px;border-radius:14px">${x}</button>`).join("");
+  if(f)f.textContent="";
+}
+function answerGame(answer,correct){
+  const f=document.getElementById("gameFeedback");
+  if(answer===correct){
+    if(f)f.textContent="🎉 Harika! Doğru cevap!";
+    gameIndex++;
+    setTimeout(startMiniGame,650);
+  }else{
+    addReviewWord(correct);
+    if(f)f.textContent=`💡 Tekrar dene! Doğru cevap: ${correct}`;
+  }
+}
+updateStreak();
+updateLenaExtras();
+setTimeout(startMiniGame,200);
+
+
+// Complete adventure layer
+const stickerData=[
+  ["🌈","Rainbow","Renkler"],["🔢","Numbers","Sayılar"],["🐱","Animals","Hayvanlar"],
+  ["🍎","Food","Yiyecekler"],["🏫","School","Okul"],["🏠","Home","Ev"],
+  ["☀️","Weather","Hava"],["🎂","Birthday","Doğum Günü"],["✈️","Travel","Seyahat"],
+  ["🏆","Champion","Final"]
+];
+const pamukMessages=[
+  "Ready, Lena? Let's learn English! 🐰",
+  "You are doing great! Keep going! ⭐",
+  "Can you help me with this word? 🐰",
+  "One more lesson, English Star! 🌟",
+  "Every new word is a new adventure! 🌈"
+];
+function updateAdventure(){
+  const earned=Math.min(10,Math.floor(done.length/3));
+  const sa=document.getElementById("stickerArea");
+  if(sa) sa.innerHTML=stickerData.map((s,i)=>`<div style="background:${i<earned?"#fff":"#f1f3f6"};border-radius:18px;padding:12px;text-align:center;opacity:${i<earned?1:.55}">
+    <div style="font-size:28px">${i<earned?s[0]:"🔒"}</div><b>${i<earned?s[1]:"Locked"}</b><br><small>${i<earned?s[2]:"Complete more lessons"}</small></div>`).join("");
+  const pl=document.getElementById("parentLessons"), ps=document.getElementById("parentStars"),
+        pb=document.getElementById("parentBadges"), pst=document.getElementById("parentStreak"),
+        pr=document.getElementById("parentReview");
+  if(pl)pl.textContent=`${done.length} / 30`;
+  if(ps)ps.textContent=stars;
+  if(pb)pb.textContent=lenaBadges.filter(b=>done.length>=b[2]).length;
+  if(pst)pst.textContent=`${streak} gün`;
+  if(pr)pr.textContent=reviewWords.length;
+  const pm=document.getElementById("pamukMessage");
+  if(pm)pm.textContent=pamukMessages[Math.min(pamukMessages.length-1,Math.floor(done.length/5))];
+}
+function openSurprise(){
+  const rewards=["⭐ +1 Bonus Yıldız!","🏅 Yeni bir başarı rozeti!","🐰 Pamuk Şeker'den özel bir mesaj!","🌈 Sticker koleksiyonuna yeni bir sticker!"];
+  const r=rewards[Math.floor(Math.random()*rewards.length)];
+  stars+=1; localStorage.setItem("lenaStars",stars);
+  const t=document.getElementById("surpriseText"); if(t)t.textContent=r;
+  const b=document.querySelector("#surpriseBox button"); if(b){b.disabled=true;b.textContent="🎉 Açıldı!";}
+  update(); updateLenaExtras(); updateAdventure();
+}
+function showTodayWords(){
+  const el=document.getElementById("todayWords");
+  if(!el)return;
+  const words=reviewWords.slice(-6);
+  el.innerHTML=(words.length?words:["hello","cat","happy"]).map(w=>`<span style="background:#fff;padding:8px 12px;border-radius:999px">📖 ${w}</span>`).join("");
+}
+updateAdventure(); showTodayWords();
+
+</script>
+</body>
+</html>
